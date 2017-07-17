@@ -292,6 +292,9 @@ buffer is not visiting a file."
 
 ;; IP for app01 is 10.96.26.57
 ;; IP for app02 is 10.96.26.47
+;; IP for app21 is 10.96.26.70
+;; IP for app22 is 10.96.26.71
+
 
 ;; macro to login to app16
 (fset 'login-16
@@ -354,6 +357,8 @@ buffer is not visiting a file."
 (eval-after-load "elpy"
   '(define-key elpy-mode-map (kbd " <C-S-return>") 'elpy-shell-send-region-or-buffer))
 
+(setq last-kbd-macro
+   [?\M-x ?e ?s ?h ?e ?l ?l return ?c ?d ?  ?~ ?/ ?D ?o ?c ?u backspace backspace backspace ?r ?o ?p ?b ?o ?x ?/ ?V ?M ?_ ?V ?i ?r tab ?D ?o ?c ?u ?m ?e ?n ?t ?s ?/ ?O ?r ?g tab ?T ?i ?m ?e ?s ?h tab return])
 ;; macro for git-status
 (global-set-key (kbd "C-x g") 'magit-status)
 
