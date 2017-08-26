@@ -19,6 +19,9 @@
 (setq last-kbd-macro
    nil)
 
+(let ((default-directory  "~/Dropbox/VM_VirtualBox/emacs.d/lisp/"))
+  (normal-top-level-add-subdirs-to-load-path))
+
 ;; additional elisp paths
 (add-to-list 'load-path "~/Dropbox/VM_VirtualBox/emacs.d/lisp/ESS/lisp")
 (add-to-list 'load-path "~/Dropbox/VM_VirtualBox/emacs.d/lisp/predictive")
@@ -42,7 +45,7 @@
 (require 'tramp)
 (require 'package)
 (require 'ido)
-(require 'predictive)
+;;(require 'predictive)
 (require 'ess-site)
 (require 'textmate)
 (require 'magit)
