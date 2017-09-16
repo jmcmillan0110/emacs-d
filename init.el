@@ -19,15 +19,12 @@
 (setq last-kbd-macro
    nil)
 
+
+;; load all packages in lisp directory
 (let ((default-directory  "~/MEGA/VM_VirtualBox/emacs.d/lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
 ;; additional elisp paths
-(add-to-list 'load-path "~/MEGA/VM_VirtualBox/emacs.d/lisp/ESS/lisp")
-(add-to-list 'load-path "~/MEGA/VM_VirtualBox/emacs.d/lisp/predictive")
-(add-to-list 'load-path "~/MEGA/VM_VirtualBox/emacs.d/lisp/emms/lisp")
-(add-to-list 'load-path "~/MEGA/VM_VirtualBox/emacs.d/lisp/")
-(add-to-list 'load-path "~/MEGA/VM_VirtualBox/emacs.d/lisp/volume.el")
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 (add-to-list 'package-archives
 '("marmalade" . "http://marmalade-repo.org/packages/"))
