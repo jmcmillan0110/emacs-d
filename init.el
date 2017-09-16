@@ -28,6 +28,9 @@
 '("marmalade" . "http://marmalade-repo.org/packages/"))
 
 
+;; load additional .el files
+(load "~/MEGA/VM_VirtualBox/emacs.d/lisp/autopair.el")
+
 ;; make emacs open full screen 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
@@ -46,7 +49,7 @@
 (require 'auto-complete)
 (require 'elpy)
 (require 'w3)
-
+(require 'autopair)
 
 ;; file backup settings
 ;; store all backup and autosave files in the tmp dir
@@ -62,17 +65,17 @@
 
 ;; package specs
 (ido-mode t)
-;;(autopair-global-mode 1)
-;;(elpy-enable)
+(autopair-global-mode)
+(elpy-enable)
 (setenv "PYTHONPATH" "/usr/bin/python")
 (setenv "SCALA_HOME" "/usr/local/bin/scala")
 
 
 
 ;;R auto-complete
-;;(setq ess-use-auto-complete t)
-;;(ess-toggle-underscore nil)
-;;(global-auto-complete-mode t)
+(setq ess-use-auto-complete t)
+(ess-toggle-underscore nil)
+(global-auto-complete-mode)
 
 ;; C++ mode
 (add-hook 'c-mode-common-hook
