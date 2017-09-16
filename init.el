@@ -83,84 +83,8 @@
             (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
               (ggtags-mode 1))))
 
-        
-
-;; w3m browser
-(setq browse-url-browser-function 'w3m-goto-url-new-session)
-
-;;wikipedia search
-(defun wikipedia-search (search-term)
-  "Search for SEARCH-TERM on wikipedia"
-  (interactive
-   (let ((term (if mark-active
-                   (buffer-substring (region-beginning) (region-end))
-                 (word-at-point))))
-     (list
-      (read-string
-       (format "Wikipedia (%s):" term) nil nil term)))
-   )
-(setq last-kbd-macro
-   nil)
-  (browse-url
-   (concat
-    "http://en.m.wikipedia.org/w/index.php?search="
-    search-term
-    ))
-  )
-
-;;when I want to enter the web address all by hand
-(defun w3m-open-site (site)
-  "Opens site in new w3m session with 'http://' appended"
-(setq last-kbd-macro
-   nil)
-  (interactive
-   (list (read-string "Enter website address(default: w3m-home):" nil nil w3m-home-page nil )))
-  (w3m-goto-url-new-session
-   (concat "http://" site)))
 
 
-(setq w3m-use-filter t)
-;; send all pages through one filter
-(setq w3m-filter-rules `(("\\`.+" w3m-filter-all)))
-
-(standard-display-ascii ?\225 [?+])
-(standard-display-ascii ?\227 [?-])
-(standard-display-ascii ?\222 [?'])
-
-(defun w3m-filter-all (url)
-  (let ((list '(
-                ;; add more as you see fit!
-               	("&#187;" "&gt;&gt;")
-               	("&laquo class="comment">;" "&lt;")
-                ("&raquo class="comment">;" "&gt;")
-                ("&ouml class="comment">;" "o")
-                ("&#8230;" "...")
-                ("&#8216;" "'")
-                ("&#8217;" "'")
-                ("&rsquo class="comment">;" "'")
-                ("&lsquo class="comment">;" "'")
-                ("\u2019" "\'")
-                ("\u2018" "\'")
-                ("\u201c" "\"")
-                ("\u201d" "\"")
-                ("&rdquo class="comment">;" "\"")
-                ("&ldquo class="comment">;" "\"")
-                ("&#8220;" "\"")
-                ("&#8221;" "\"")
-                ("\u2013" "-")
-               	("\u2014" "-")
-                ("&#8211;" "-")
-                ("&#8212;" "-")
-                ("&ndash class="comment">;" "-")
-                ("&mdash class="comment">;" "-")
-                )))
-  (while list
-    (let ((pat (car (car list)))
-          (rep (car (cdr (car list)))))
-      (goto-char (point-min))
-      (while (search-forward pat nil t)
-        (replace-match rep))
-      (setq list (cdr list))))))
 
 
 ;; TEX mode
@@ -244,6 +168,44 @@ buffer is not visiting a file."
   "Delete Emacs autosaved files in current directory"
   (interactive)
   (shell-command "rm $(find . -maxdepth 1 -type f -name \"*~\")"))
+
+
+
+;; toggle images in eww browser
+(defvar-local endless/display-images t)
+
+(defun toggle-image-display ()
+  "Toggle images display on current buffer."
+  (interactive)
+  (setq endless/display-images
+        (null endless/display-images))
+  (endless/backup-display-property endless/display-images))
+
+
+(defun endless/backup-display-property (invert &optional object)
+  "Move the 'display property at POS to 'display-backup.
+Only applies if display property is an image.
+If INVERT is non-nil, move from 'display-backup to 'display
+instead.
+Optional OBJECT specifies the string or buffer. Nil means current
+buffer."
+  (let* ((inhibit-read-only t)
+         (from (if invert 'display-backup 'display))
+         (to (if invert 'display 'display-backup))
+         (pos (point-min))
+         left prop)
+    (while (and pos (/= pos (point-max)))
+      (if (get-text-property pos from object)
+          (setq left pos)
+        (setq left (next-single-property-change pos from object)))
+      (if (or (null left) (= left (point-max)))
+          (setq pos nil)
+        (setq prop (get-text-property left from object))
+        (setq pos (or (next-single-property-change left from object)
+                      (point-max)))
+        (when (eq (car prop) 'image)
+          (add-text-properties left pos (list from nil to prop) object))))))
+
 
 
 ;; Custom Macros --------------------------------------------------------
