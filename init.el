@@ -14,20 +14,20 @@
 (custom-set-faces)
 
 
-(setq default-directory "~/Dropbox/VM_VirtualBox" )
-(setq bongo-default-directory "~/Dropbox/Music/Bongo/")
+(setq default-directory "~/MEGA/VM_VirtualBox" )
+(setq bongo-default-directory "~/MEGA/Music/Bongo/")
 (setq last-kbd-macro
    nil)
 
-(let ((default-directory  "~/Dropbox/VM_VirtualBox/emacs.d/lisp/"))
+(let ((default-directory  "~/MEGA/VM_VirtualBox/emacs.d/lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
 ;; additional elisp paths
-(add-to-list 'load-path "~/Dropbox/VM_VirtualBox/emacs.d/lisp/ESS/lisp")
-(add-to-list 'load-path "~/Dropbox/VM_VirtualBox/emacs.d/lisp/predictive")
-(add-to-list 'load-path "~/Dropbox/VM_VirtualBox/emacs.d/lisp/emms/lisp")
-(add-to-list 'load-path "~/Dropbox/VM_VirtualBox/emacs.d/lisp/")
-(add-to-list 'load-path "~/Dropbox/VM_VirtualBox/emacs.d/lisp/volume.el")
+(add-to-list 'load-path "~/MEGA/VM_VirtualBox/emacs.d/lisp/ESS/lisp")
+(add-to-list 'load-path "~/MEGA/VM_VirtualBox/emacs.d/lisp/predictive")
+(add-to-list 'load-path "~/MEGA/VM_VirtualBox/emacs.d/lisp/emms/lisp")
+(add-to-list 'load-path "~/MEGA/VM_VirtualBox/emacs.d/lisp/")
+(add-to-list 'load-path "~/MEGA/VM_VirtualBox/emacs.d/lisp/volume.el")
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 (add-to-list 'package-archives
 '("marmalade" . "http://marmalade-repo.org/packages/"))
@@ -45,38 +45,23 @@
 (require 'tramp)
 (require 'package)
 (require 'ido)
-;;(require 'predictive)
 (require 'ess-site)
 (require 'textmate)
 (require 'magit)
 (require 'auto-complete)
-
+(require 'elpy)
+(require 'w3)
 
 ;; file backup settings
-(defvar --backup-directory (concat user-emacs-directory "backups"))
-(if (not (file-exists-p --backup-directory))
-        (make-directory --backup-directory t))
-(setq backup-directory-alist `(("." . ,--backup-directory)))
-(setq make-backup-files t
-; backup of a file the first time it is saved.
-      backup-by-copying t
-; don't clobber symlinks
-      version-control t
-; version numbers for backup files
-      delete-old-versions t
-; delete excess backup files silently
-      delete-by-moving-to-trash t
-      kept-old-versions 6
-; oldest versions to keep when a new numbered backup is made (default: 2)
-      kept-new-versions 9
-; newest versions to keep when a new numbered backup is made (default: 2)
-      auto-save-default t
-; auto-save every buffer that visits a file
-      auto-save-timeout 60
-; number of seconds idle time before auto-save (default: 30)
-      auto-save-interval 200)
-; number of keystrokes between auto-saves (default: 300)
+;; store all backup and autosave files in the tmp dir
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
 
+
+;; prevent writing of tramp_hostory files
+(setq tramp-histfile-override "/dev/null")
 
 
 ;; package specs
@@ -99,33 +84,6 @@
             (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
               (ggtags-mode 1))))
 
-;; Mail - Wanderlust
-(autoload 'wl "wl" "Wanderlust" t)
-  (autoload 'wl-user-agent-compose "wl-draft" nil t)
-     (if (boundp 'mail-user-agent)
-         (setq mail-user-agent 'wl-user-agent))
-     (if (fboundp 'define-mail-user-agent)
-         (define-mail-user-agent
-           'wl-user-agent
-           'wl-user-agent-compose
-           'wl-draft-send
-           'wl-draft-kill
-           'mail-send-hook))
-
-
-;; media system
-(setq exec-path (append exec-path '("usr/bin/")))
-(require 'emms-setup)
-(require 'emms-player-mplayer)
-(emms-standard)
-(emms-default-players)
-(define-emms-simple-player mplayer '(file(setq last-kbd-macro
-   nil)
- url)
-      (regexp-opt '(".ogg" ".mp3" ".wav" ".mpg" ".mpeg" ".wmv" ".wma"
-                    ".mov" ".avi" ".divx" ".ogm" ".asf" ".mkv" "http://" "mms://"
-                    ".rm" ".rmvb" ".mp4" ".flac" ".vob" ".m4a" ".flv" ".ogv" ".pls"))
-      "mplayer" "-slave" "-quiet" "-really-quiet" "-fullscreen")
         
 
 ;; w3m browser
@@ -282,6 +240,12 @@ buffer is not visiting a file."
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 
+;; delete autosaves in current directory
+(defun autosave-delete ()
+  "Delete Emacs autosaved files in current directory"
+  (interactive)
+  (shell-command "rm $(find . -maxdepth 1 -type f -name \"*~\")"))
+
 
 ;; Custom Macros --------------------------------------------------------
 
@@ -314,18 +278,14 @@ buffer is not visiting a file."
    nil)
 
 
-(setq last-kbd-macro
-   nil)
-;; type IP to app15 server
-(global-set-key (kbd "C-x C-j 1") "/jmcmillan@10.96.26.63:/")
-
 ;; macro to open the configuration file
 (fset 'open-config
-   [?\C-x ?\C-f ?/ ?~ ?/ ?D ?r ?o ?p ?b ?o ?x ?/ ?V ?M ?_ ?V ?i ?r ?t ?u ?a ?l ?B ?o ?x ?/ ?e ?m ?a ?c ?d backspace ?s ?. ?d ?/ ?i ?n ?i ?t ?. ?e ?l return up up S-down S-down ?\M-x ?i ?n tab ?s ?e ?t ?- ?n backspace backspace backspace ?r ?t ?- ?k tab])
+   [?\C-x ?\C-f ?~ ?/ ?M ?E ?G ?A ?/ ?V ?M ?_ ?V tab ?e ?m ?a ?c ?s ?. ?d ?/ ?i ?n ?i ?t ?. ?e ?l return])
 
 
+;; macro to go to timesheet directory
 (fset 'timesheet-dir
-   [?\M-x ?e ?s ?h ?e ?l ?l return ?c ?d ?  ?~ ?/ ?D ?o ?c ?u backspace backspace backspace ?r ?o ?p ?b ?o ?x ?/ ?V ?M ?_ ?V ?i ?r tab ?D ?o ?c ?u ?m ?e ?n ?t ?s ?/ ?O ?r ?g tab ?T ?i ?m ?e ?s ?h tab return])
+   [?\M-x ?e ?s ?h tab return ?c ?d ?  ?~ ?/ ?D ?o ?c ?u tab ?O ?r ?g tab ?T ?i ?m ?e tab return])
 
 
 ;; macros to navigate windows
