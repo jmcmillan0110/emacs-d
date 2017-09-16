@@ -19,8 +19,6 @@
 (setq last-kbd-macro
    nil)
 
-
-;; load all packages in lisp directory
 (let ((default-directory  "~/MEGA/VM_VirtualBox/emacs.d/lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
@@ -49,6 +47,7 @@
 (require 'elpy)
 (require 'w3)
 
+
 ;; file backup settings
 ;; store all backup and autosave files in the tmp dir
 (setq backup-directory-alist
@@ -71,9 +70,9 @@
 
 
 ;;R auto-complete
-(setq ess-use-auto-complete t)
-(ess-toggle-underscore nil)
-(global-auto-complete-mode t)
+;;(setq ess-use-auto-complete t)
+;;(ess-toggle-underscore nil)
+;;(global-auto-complete-mode t)
 
 ;; C++ mode
 (add-hook 'c-mode-common-hook
