@@ -12,6 +12,14 @@
 
 
 
+;; load additional .el files
+(setq load-path
+      (append (list nil "~/MEGA/VM_VirtualBox/emacs.d/lisp/")
+              load-path))
+(let ((default-directory  "~/MEGA/VM_VirtualBox/emacs.d/lisp/"))
+  (normal-top-level-add-subdirs-to-load-path))
+
+
 ;; load other config files
 (load "~/MEGA/VM_VirtualBox/emacs.d/packages-config.el")
 (load "~/MEGA/VM_VirtualBox/emacs.d/functions-config.el")
@@ -29,10 +37,6 @@
   (normal-top-level-add-subdirs-to-load-path))
 
 
-;; load additional .el files
-(setq load-path
-      (append (list nil "~/MEGA/VM_VirtualBox/emacs.d/lisp/")
-              load-path))
 
 ;; make emacs open full screen 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
