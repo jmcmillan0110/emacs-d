@@ -1,8 +1,21 @@
 ;; General Setup --------------------------------------------------------------
 
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.
+;; the package manager
+(require 'package)
+(setq
+ package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                    ("org" . "http://orgmode.org/elpa/")
+                    ("melpa" . "http://melpa.org/packages/")
+                    ("melpa-stable" . "http://stable.melpa.org/packages/"))
+ package-archive-priorities '(("melpa-stable" . 1)))
+
 (package-initialize)
+(when (not package-archive-contents)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(require 'use-package)
+
+
 
 ;; custom set variables, can only be one instance
 (custom-set-variables
@@ -14,6 +27,8 @@
 (custom-set-faces)
 
 
+(add-to-list 'exec-path "/usr/local/bin")
+
 (setq default-directory "~/MEGA/VM_VirtualBox" )
 (setq bongo-default-directory "~/MEGA/Music/Bongo/")
 (setq last-kbd-macro
@@ -22,14 +37,11 @@
 (let ((default-directory  "~/MEGA/VM_VirtualBox/emacs.d/lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
-;; additional elisp paths
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-(add-to-list 'package-archives
-'("marmalade" . "http://marmalade-repo.org/packages/"))
-
 
 ;; load additional .el files
-(load "~/MEGA/VM_VirtualBox/emacs.d/lisp/autopair.el")
+(setq load-path
+      (append (list nil "~/MEGA/VM_VirtualBox/emacs.d/lisp/")
+              load-path))
 
 ;; make emacs open full screen 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -50,16 +62,18 @@
 (require 'elpy)
 (require 'w3)
 (require 'autopair)
+;;(require 'ensime)
+
 
 ;; file backup settings
-;; store all backup and autosave files in the tmp dir
+;; store all backup and autosave files at ~/.saves
 (setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
+      `((".*" . ,"~/.saves")))
 (setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
+      `((".*" ,"~/.saves" t)))
 
 
-;; prevent writing of tramp_hostory files
+;; prevent writing of tramp_history files
 (setq tramp-histfile-override "/dev/null")
 
 
@@ -67,7 +81,7 @@
 (ido-mode t)
 (autopair-global-mode)
 (elpy-enable)
-(setenv "PYTHONPATH" "/usr/bin/python")
+(setenv "PYTHONPATH" "/usr/bin/python3.5")
 (setenv "SCALA_HOME" "/usr/local/bin/scala")
 
 
@@ -83,8 +97,11 @@
             (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
               (ggtags-mode 1))))
 
+;;elpy
+(setq python-shell-completion-native-enable nil)
 
-
+;;scala mode
+(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 
 
 ;; TEX mode
@@ -207,22 +224,34 @@ buffer."
           (add-text-properties left pos (list from nil to prop) object))))))
 
 
+(global-set-key (kbd "C-x C-k i") 'toggle-image-display)
+
 
 ;; Custom Macros --------------------------------------------------------
 
 ;; open new empty buffer
 (global-set-key (kbd "C-x C-k n") 'j-new-buffer) 
 
+
+
+;; ALL IP ADDRESSES -------------------
+;; IP for dev app01         | 10.96.26.57
+;; IP for dev app02         | 10.96.26.47
+;; IP for dev app04         | 10.96.26.50
+;; IP for dev app05         | 10.96.26.51
+;; IP for dev app06         | 10.96.26.52
+;; IP for     app21         | 10.96.26.70
+;; IP for     app22         | 10.96.26.71
+;; IP for     app25(cron)   | 10.96.26.74
+;;--------------------------------------
+
+
+
+
 ;; macro to login to app15
 (fset 'login-15
    [?\M-x ?e ?s ?h ?e ?l ?l return ?c ?d ?  ?/ ?j ?m ?c ?m ?i ?l ?l ?a ?n ?@ ?1 ?0 ?. ?9 ?6 ?. ?2 ?6 ?. ?6 ?3 ?:])
 (global-set-key (kbd "C-x C-k 1") 'login-15)
-
-;; IP for app01 is 10.96.26.57
-;; IP for app02 is 10.96.26.47
-;; IP for app21 is 10.96.26.70
-;; IP for app22 is 10.96.26.71
-
 
 ;; macro to login to app16
 (fset 'login-16
@@ -283,6 +312,7 @@ buffer."
 
 (setq last-kbd-macro
    [?\M-x ?e ?s ?h ?e ?l ?l return ?c ?d ?  ?~ ?/ ?D ?o ?c ?u backspace backspace backspace ?r ?o ?p ?b ?o ?x ?/ ?V ?M ?_ ?V ?i ?r tab ?D ?o ?c ?u ?m ?e ?n ?t ?s ?/ ?O ?r ?g tab ?T ?i ?m ?e ?s ?h tab return])
+
 ;; macro for git-status
 (global-set-key (kbd "C-x g") 'magit-status)
 
