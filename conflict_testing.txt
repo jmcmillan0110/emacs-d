@@ -1,3 +1,0 @@
-Line 1 : D
-Line 2 : E
-Line 3 : F
