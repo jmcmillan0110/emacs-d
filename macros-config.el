@@ -7,6 +7,8 @@
 ;; IP for dev app04         | 10.96.26.50
 ;; IP for dev app05         | 10.96.26.51
 ;; IP for dev app06         | 10.96.26.52
+;; IP for     app15         | 10.96.26.63
+;; IP for     app16         | 10.96.26.64
 ;; IP for     app21         | 10.96.26.70
 ;; IP for     app22         | 10.96.26.71
 ;; IP for     app25(cron)   | 10.96.26.74
@@ -76,7 +78,7 @@
   '(define-key elpy-mode-map (kbd " <C-S-return>") 'elpy-shell-send-region-or-buffer))
 
 (setq last-kbd-macro
-   [?\M-x ?e ?s ?h ?e ?l ?l return ?c ?d ?  ?~ ?/ ?D ?o ?c ?u backspace backspace backspace ?r ?o ?p ?b ?o ?x ?/ ?V ?M ?_ ?V ?i ?r tab ?D ?o ?c ?u ?m ?e ?n ?t ?s ?/ ?O ?r ?g tab ?T ?i ?m ?e ?s ?h tab return])
+   [?\M-x ?e ?s ?h ?e ?l ?l return ?c ?d ?  ?~ ?/ ?D [[[[]]]]?o ?c ?u backspace backspace backspace ?r ?o ?p ?b ?o ?x ?/ ?V ?M ?_ ?V ?i ?r tab ?D ?o ?c ?u ?m ?e ?n ?t ?s ?/ ?O ?r ?g tab ?T ?i ?m ?e ?s ?h tab return])
 
 ;; macro for git-status
 (global-set-key (kbd "C-x g") 'magit-status)
