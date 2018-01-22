@@ -99,3 +99,5 @@
 ;; use root (sudo -s)
 
 
+;; add line numbers to all buffers
+(global-linum-mode t)
