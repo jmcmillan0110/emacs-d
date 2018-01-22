@@ -33,10 +33,6 @@
 (setq last-kbd-macro
    nil)
 
-(let ((default-directory  "~/MEGA/VM_VirtualBox/emacs.d/lisp/"))
-  (normal-top-level-add-subdirs-to-load-path))
-
-
 
 ;; make emacs open full screen 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -103,3 +99,5 @@
 ;; use root (sudo -s)
 
 
+;; add line numbers to all buffers
+(global-linum-mode t)
