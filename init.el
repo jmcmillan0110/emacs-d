@@ -101,3 +101,7 @@
 
 ;; add line numbers to all buffers
 (global-linum-mode t)
+
+
+;;change smerge host key 
+(setq smerge-command-prefix "\C-c s")

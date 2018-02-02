@@ -43,8 +43,7 @@
 (require 'w3)
 (require 'autopair)
 (require 'ggtags)
-;;(require 'ensime)
-
+(require 'auctex)
 
 
 
