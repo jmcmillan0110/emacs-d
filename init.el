@@ -65,7 +65,6 @@
 
 ;;R auto-complete
 (setq ess-use-auto-complete t)
-(ess-toggle-underscore nil)
 (global-auto-complete-mode)
 
 ;; C++ mode
@@ -98,6 +97,13 @@
 ;; /usr/share/texlive/texmf-dist/text
 ;; use root (sudo -s)
 
+
+;; PDF tools
+ (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+ TeX-source-correlate-start-server t
+ )
+;; revert pdf-view after compilation
+(add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
 
 ;; add line numbers to all buffers
 (global-linum-mode t)
