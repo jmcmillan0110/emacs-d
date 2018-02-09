@@ -33,6 +33,7 @@
 (setq last-kbd-macro
    nil)
 
+
 ;; turn off menu bar
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
