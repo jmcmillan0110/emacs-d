@@ -35,6 +35,7 @@
 
 ;; turn off menu bar
 (tool-bar-mode -1)
+(scroll-bar-mode -1)
 
 ;; Make emacs open full screen 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
