@@ -34,9 +34,9 @@
    nil)
 
 ;; turn off menu bar
-(menu-bar-mode -1)
+(tool-bar-mode -1)
 
-;; make emacs open full screen 
+;; Make emacs open full screen 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; set the opening screen to blank scratch page
