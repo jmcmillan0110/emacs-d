@@ -29,7 +29,7 @@
 (use-package w3)
 (use-package autopair)
 (use-package ggtags)
-
+(use-package pdf-tools)
 
 ;; C/C++
 (add-hook 'c-mode-common-hook

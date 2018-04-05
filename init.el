@@ -108,7 +108,6 @@
 ;; revert pdf-view after compilation
 (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
 
-<<<<<<< HEAD
 ;; add line numbers to code buffers
 (add-hook 'prog-mode-hook 'linum-mode)
 
@@ -118,11 +117,7 @@
 ;; turn off beep at end of file
 (setq visible-bell       nil
       ring-bell-function #'ignore)
-=======
-;; add line numbers to all buffers
-(global-linum-mode t)
 
 
 ;;change smerge host key 
 (setq smerge-command-prefix "\C-c s")
->>>>>>> d8521a377763badafab1a87e47b478d08a1ac078
