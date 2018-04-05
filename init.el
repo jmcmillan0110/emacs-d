@@ -35,6 +35,7 @@
 
 ;; turn off menu bar
 (tool-bar-mode -1)
+(menu-bar-mode -1)
 (scroll-bar-mode -1)
 
 ;; Make emacs open full screen 
@@ -119,5 +120,3 @@
       ring-bell-function #'ignore)
 
 
-;;change smerge host key 
-(setq smerge-command-prefix "\C-c s")
