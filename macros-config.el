@@ -71,7 +71,7 @@
 
 ;; make C-return send line to python shell
 (eval-after-load "elpy"
-  '(define-key elpy-mode-map (kbd " <C-return>") 'elpy-shell-send-current-statement))
+  '(define-key elpy-mode-map (kbd " <C-return>") 'elpy-shell-send-statement-and-step))
 
 ;; shift C-return sends block to python shell
 (eval-after-load "elpy"

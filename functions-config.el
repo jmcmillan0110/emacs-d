@@ -33,6 +33,7 @@
                   'visible))
 
 
+
 ;; function to evaluate lisp
 (defun eval-region-or-buffer ()
   (interactive)
@@ -47,6 +48,8 @@
       (message "Buffer evaluated")))))
 
 (global-set-key (kbd "C-x C-k e") 'eval-region-or-buffer)
+
+
 
 
 (defun sudo-edit (&optional arg)

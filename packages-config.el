@@ -30,9 +30,17 @@
 (use-package autopair)
 (use-package ggtags)
 (use-package pdf-tools)
+(use-package flycheck)
 
 ;; C/C++
 (add-hook 'c-mode-common-hook
           (lambda ()
             (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
               (ggtags-mode 1))))
+
+
+(elpy-enable)
+(when (require 'flycheck nil t)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
+(setq python-shell-interpreter "ipython3" python-shell-interpreter-args "--simple-prompt --pprint")
