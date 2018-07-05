@@ -14,22 +14,21 @@
 
 ;; load additional .el files
 (setq load-path
-      (append (list nil "~/MEGA/VM_VirtualBox/emacs.d/lisp/")
+      (append (list nil "~/pCloudDrive/emacs-d/lisp/")
               load-path))
-(let ((default-directory  "~/MEGA/VM_VirtualBox/emacs.d/lisp/"))
+(let ((default-directory  "~/pCloudDrive/emacs-d/lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
 
 ;; load other config files
-(load "~/MEGA/VM_VirtualBox/emacs.d/packages-config.el")
-(load "~/MEGA/VM_VirtualBox/emacs.d/functions-config.el")
-(load "~/MEGA/VM_VirtualBox/emacs.d/macros-config.el")
+(load "~/pCloudDrive/emacs-d/packages-config.el")
+(load "~/pCloudDrive/emacs-d/functions-config.el")
+(load "~/pCloudDrive/emacs-d/macros-config.el")
 
 
 (add-to-list 'exec-path "/usr/local/bin")
 
-(setq default-directory "~/MEGA/VM_VirtualBox" )
-(setq bongo-default-directory "~/MEGA/Music/Bongo/")
+(setq default-directory "~/pCloudDrive" )
 (setq last-kbd-macro
    nil)
 
