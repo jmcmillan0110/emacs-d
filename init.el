@@ -1,3 +1,4 @@
+
 ;; General Setup --------------------------------------------------------------
 
 
@@ -59,9 +60,9 @@
 
 ;; package specs
 (ido-mode t)
-(autopair-global-mode)
-;;(elpy-enable)
-(setenv "PYTHONPATH" "/usr/bin/python3.5")
+;;(autopair-global-mode)
+(elpy-enable)
+(setenv "PYTHONPATH" "/usr/bin/python3.6")
 (setenv "SCALA_HOME" "/usr/local/bin/scala")
 
 
@@ -77,7 +78,7 @@
               (ggtags-mode 1))))
 
 ;;elpy
-(setq python-shell-completion-native-enable nil)
+;;(setq python-shell-completion-native-enable nil)
 
 ;;scala mode
 (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)

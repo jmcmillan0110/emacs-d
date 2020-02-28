@@ -17,19 +17,20 @@
 
 (setq use-package-always-ensure t)
 
+(add-to-list 'load-path "~/Downloads/ess-18.10.2/lisp")
+
 ;;load packages
 (use-package ssh)
 (use-package tramp)
 (use-package ido)
-(use-package ess)
+(require 'ess-site)
 (use-package textmate)
 (use-package magit)
 (use-package auto-complete)
 (use-package elpy)
-(use-package w3)
-(use-package autopair)
+(require ' autopair)
 (use-package ggtags)
-(use-package pdf-tools)
+;;(use-package pdf-tools)
 (use-package flycheck)
 
 ;; C/C++
@@ -38,9 +39,9 @@
             (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
               (ggtags-mode 1))))
 
-
+;; Python
 (elpy-enable)
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
-(setq python-shell-interpreter "ipython3" python-shell-interpreter-args "--simple-prompt --pprint")
+(setq python-shell-interpreter "python3")

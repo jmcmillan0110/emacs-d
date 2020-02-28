@@ -1,49 +1,9 @@
 ;; Macros
 
 
-;; ALL IP ADDRESSES -------------------
-;; IP for dev app01         | 10.96.26.57
-;; IP for dev app02         | 10.96.26.47
-;; IP for dev app04         | 10.96.26.50
-;; IP for dev app05         | 10.96.26.51
-;; IP for dev app06         | 10.96.26.52
-;; IP for     app15         | 10.96.26.63
-;; IP for     app16         | 10.96.26.64
-;; IP for     app21         | 10.96.26.70
-;; IP for     app22         | 10.96.26.71
-;; IP for     app25(cron)   | 10.96.26.74
-;;--------------------------------------
-
-
-;; macro to login to app15
-(fset 'login-15
-   [?\M-x ?e ?s ?h ?e ?l ?l return ?c ?d ?  ?/ ?j ?m ?c ?m ?i ?l ?l ?a ?n ?@ ?1 ?0 ?. ?9 ?6 ?. ?2 ?6 ?. ?6 ?3 ?:])
-(global-set-key (kbd "C-x C-k 1") 'login-15)
-
-;; macro to login to app16
-(fset 'login-16
-   [?\M-x ?e ?s ?h ?e ?l ?l return ?c ?d ?  ?/ ?j ?m ?c ?m ?i ?l ?l ?a ?n ?@ ?1 ?0 ?. ?9 ?6 ?. ?2 ?6 ?. ?6 ?4 ?:])
-(global-set-key (kbd "C-x C-k 2") 'login-16)
-
-;; login to devapp04
-
-(fset 'login-devapp1
-   [?\M-x ?e ?s ?h ?e ?l ?l return ?c ?d ?  ?/ ?j ?m ?c ?m ?i ?l ?l ?a ?n ?@ ?1 ?0 ?. ?9 ?6 ?. ?2 ?6 ?. ?5 ?0 ?:])
-(global-set-key (kbd "C-x C-k d") 'login-devapp1)
-
-(setq last-kbd-macro
-   nil)
-
-
 ;; macro to open the configuration file
 (fset 'open-config
    [?\C-x ?\C-f ?~ ?/ ?p ?C ?l ?o ?u ?d ?D ?r ?i ?v ?e ?/ ?e ?m ?a ?c ?s ?- ?d ?/ ?i ?n ?i ?t ?. ?e ?l return])
-
-
-
-;; macro to go to timesheet directory
-(fset 'timesheet-dir
-   [?\M-x ?e ?s ?h tab return ?c ?d ?  ?~ ?/ ?D ?o ?c ?u tab ?O ?r ?g tab ?T ?i ?m ?e tab return])
 
 
 ;; macros to navigate windows
